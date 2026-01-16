@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+
 namespace CCTV.S2
 {
     public class Program
@@ -8,6 +10,10 @@ namespace CCTV.S2
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddDbContext<DAL.AppDbContext>(ops=>
+            {
+                ops.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
+            });
 
             var app = builder.Build();
 
@@ -25,6 +31,10 @@ namespace CCTV.S2
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.MapControllerRoute(
+                name: "admin",
+                pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
             app.MapControllerRoute(
                 name: "default",

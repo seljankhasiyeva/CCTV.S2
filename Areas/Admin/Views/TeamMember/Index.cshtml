@@ -1,0 +1,49 @@
+﻿@using CCTV.S2.Models
+@model List<TeamMember>
+ <div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Team Members</h4>
+            <a asp-action="create" class="btn btn-primary">Add Team Member</a>
+                  <div class="table-responsive">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>
+                            Image
+                          </th>
+                          <th>
+                            Full Name
+                          </th>
+                            <th>
+                                Designation
+                            </th>
+                          <th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @foreach(TeamMember teamMember in Model)
+                        {
+                            <tr>
+                                <td class="py-1">
+                                    <img src="~/img/@teamMember.Image" alt="image" />
+                                </td>
+                                <td>
+                                    @teamMember.Name
+                                </td>
+                                <td>
+                                    @teamMember.Designation
+                                </td>
+                                <td>
+                                    <a asp-action="update" asp-route-id="@teamMember.Id" class="btn btn-warning">Update</a>
+                                    <a asp-action="delete" asp-route-id="@teamMember.Id" class="btn btn-danger">Delete</a>
+                                    <a asp-action="detail" asp-route-id="@teamMember.Id" class="btn btn-success">Detail</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
