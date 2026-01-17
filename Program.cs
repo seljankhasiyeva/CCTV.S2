@@ -1,3 +1,8 @@
+using System;
+using CCTV.S2.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+
 namespace CCTV.S2
 {
     public class Program
@@ -8,8 +13,25 @@ namespace CCTV.S2
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddDbContext<DAL.AppDbContext>(ops =>
+            {
+                ops.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
+            });
+
+            builder.Services.AddIdentity<AppUser, IdentityRole>(ops =>
+            {
+                ops.Password.RequiredLength = 8;
+                ops.Password.RequireNonAlphanumeric = false;
+                ops.User.RequireUniqueEmail = true;
+                ops.Lockout.AllowedForNewUsers = true;
+                ops.Lockout.MaxFailedAccessAttempts = 3;
+                ops.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(3);
+            }).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
 
             var app = builder.Build();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -24,7 +46,10 @@ namespace CCTV.S2
 
             app.UseRouting();
 
-            app.UseAuthorization();
+
+            app.MapControllerRoute(
+                name: "admin",
+                pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
             app.MapControllerRoute(
                 name: "default",
