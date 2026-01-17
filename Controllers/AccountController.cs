@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using CCTV.S2.Models;
+using CCTV.S2.ViewModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CCTV.S2.Controllers
@@ -45,6 +47,11 @@ namespace CCTV.S2.Controllers
             }
 
             return Json(user);
+        }
+
+        public IActionResult Login()
+        {
+            return View();
         }
     }
 }

@@ -1,6 +1,9 @@
+
 using System;
+using CCTV.S2.DAL;
 using CCTV.S2.Models;
 using Microsoft.AspNetCore.Identity;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace CCTV.S2
@@ -13,7 +16,8 @@ namespace CCTV.S2
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-            builder.Services.AddDbContext<DAL.AppDbContext>(ops =>
+
+            builder.Services.AddDbContext<AppDbContext>(ops =>
             {
                 ops.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
             });
@@ -27,6 +31,8 @@ namespace CCTV.S2
                 ops.Lockout.MaxFailedAccessAttempts = 3;
                 ops.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(3);
             }).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
+
+
 
             var app = builder.Build();
 

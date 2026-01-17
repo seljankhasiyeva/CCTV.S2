@@ -46,6 +46,24 @@
                 <a href="about.html" class="nav-item nav-link">About</a>
                 <a href="service.html" class="nav-item nav-link">Service</a>
                 <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Account
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="accountDropdown">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li><a class="dropdown-item" href="my-account.html">@User.Identity.Name</a></li>
+                            <li><a class="dropdown-item" asp-action="Logout" asp-controller="Account">Logout</a></li>
+                        }
+                        else
+                        {
+                            <li><a class="dropdown-item" href="my-account.html">My Account</a></li>
+                            <li><a class="dropdown-item" href="login-register.html">Login | Register</a></li>
+                        }
+                    </ul>
+                </div>
+
+                <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                     <div class="dropdown-menu m-0">
                         <a href="price.html" class="dropdown-item">Pricing Plan</a>
