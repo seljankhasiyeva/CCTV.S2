@@ -36,7 +36,7 @@ namespace CCTV.S2.Areas.Admin.Controllers
             {
                 return View(createTeamMemberVM);
             }
-            if (!createTeamMemberVM.Photo.ValidateType("img/"))
+            if (!createTeamMemberVM.Photo.ValidateType("image/"))
             {
                 ModelState.AddModelError("Photo", "File type must be image");
                 return View(createTeamMemberVM);
